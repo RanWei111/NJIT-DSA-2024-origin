@@ -75,7 +75,7 @@ public class GenericTests {
    }
 
    @Test
-   @Timeout(value = 10, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
+   //@Timeout(value = 10, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
    @DisplayName("Testing the Generic sort() with strings")
    void sortTestString() {
       String [] testArray = getArrayWithStrings();

@@ -45,7 +45,7 @@ public class QueueImplementation<E> implements QueueInterface<E>{
                 int i = 0;
                
                 while (i<size){
-                    if (head+i<capacity){
+                    if (head+i < capacity){
                         newArray[i] = itemArray[head+i];
                     }else {
                         newArray[i] = itemArray[i-(capacity-head)];
@@ -111,7 +111,7 @@ public class QueueImplementation<E> implements QueueInterface<E>{
 
     @Override
     public void clear() {
-        for (int i=0;i <capacity;i++){
+        for (int i=0;i < capacity;i++){
             itemArray[i] = null;
         }
         head = 0;

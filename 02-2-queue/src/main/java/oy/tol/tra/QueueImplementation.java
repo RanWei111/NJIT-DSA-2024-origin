@@ -41,37 +41,27 @@ public class QueueImplementation<E> implements QueueInterface<E>{
         if (element == null){
             throw new NullPointerException("The element to enqueue can't be null");
         }
-        //Beyond capacity, create a new array twice the size of the original array
-        //then copy the data from the original array to the new array
         if (size >= capacity){
             try {
                 int newCapacity = 2 * capacity;
                 Object [] newArray = new Object[newCapacity];
                 int i = 0;
-                //There is size of data to copy to the new array
                 while (i<size){
-                    //If the index is smaller than capacity, use it directly.
-                    // Otherwise, the index is recalculated
                     if (head+i<capacity){
                         newArray[i] = itemArray[head+i];
                     }else {
-                    //i-(capacity-head) is the new index
-                    //This is usually the case when the tail address in the computer comes before the head
                         newArray[i] = itemArray[i-(capacity-head)];
                     }
                     i++;
                 }
                 itemArray = newArray;
                 capacity = newCapacity;
-                //The header changes to 0
                 head = 0;
-                //Tail is size
                 tail = size;
             } catch (OutOfMemoryError e) {
                 throw new QueueAllocationException("Failed to allocate more room for the stack.");
             }
         }
-        //Normal add operation
         itemArray[tail] = element;
         if (tail == capacity-1){
             tail = 0;
@@ -89,7 +79,7 @@ public class QueueImplementation<E> implements QueueInterface<E>{
         }
         Object dequeueElement = itemArray[head];
         itemArray[head] = null;
-        if (head == capacity-1){
+        if (head == capacity - 1){
             head = 0;
         }else {
             head = head+1;

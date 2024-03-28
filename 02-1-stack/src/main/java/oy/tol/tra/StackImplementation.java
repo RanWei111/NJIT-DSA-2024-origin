@@ -72,7 +72,10 @@ public class StackImplementation<E> implements StackInterface<E> {
 
    @Override
    public boolean isEmpty() {
-      return currentIndex == -1;
+      if (currentIndex == -1){
+         return true;
+      }
+      return false;
    }
 
    @Override

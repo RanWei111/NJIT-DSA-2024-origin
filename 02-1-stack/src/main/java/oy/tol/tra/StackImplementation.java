@@ -25,7 +25,10 @@ public class StackImplementation<E> implements StackInterface<E> {
       return capacity;
    }
 
-   public void push(E element) throws NullPointerException {   
+   public void push(E element) throws NullPointerException { 
+      if (element == null) {   
+         throw new NullPointerException("Cannot push null element into the stack!");  
+     }    
       if (size() == capacity()) {  
           @SuppressWarnings("unchecked")  
           E[] newArray = (E[]) new Object[this.capacity * 2 + 1];  
@@ -33,22 +36,22 @@ public class StackImplementation<E> implements StackInterface<E> {
           itemArray = newArray;  
           capacity = capacity * 2 + 1;  
       }  
-      if (element == null) {   
-          throw new NullPointerException("Cannot push null element into the stack!");  
-      }  
       itemArray[++currentIndex] = element;  
   }     
    
 
-   @SuppressWarnings("unchecked")
-   @Override
-   public E pop() throws StackIsEmptyException {
-      if(isEmpty()){
-         throw new StackIsEmptyException("Stack is empty!");
-      }
-      return (E)itemArray[currentIndex--];
-   }
-   
+  @SuppressWarnings("unchecked")
+  @Override
+  public E pop() throws StackIsEmptyException {
+     if (isEmpty()){
+        throw new StackIsEmptyException("Stack is empty!");
+     }
+     Object popElement = itemArray[currentIndex];
+     itemArray[currentIndex] = null;
+     currentIndex--;
+     return (E) popElement;
+  }
+
 
    @SuppressWarnings("unchecked")
    @Override
@@ -72,10 +75,7 @@ public class StackImplementation<E> implements StackInterface<E> {
 
    @Override
    public boolean isEmpty() {
-      if (currentIndex == -1){
-         return true;
-      }
-      return false;
+      return currentIndex == -1; 
    }
 
    @Override

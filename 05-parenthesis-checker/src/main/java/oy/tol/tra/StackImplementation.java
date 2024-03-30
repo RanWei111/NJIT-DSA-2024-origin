@@ -76,7 +76,7 @@ public class StackImplementation<E> implements StackInterface<E> {
    @Override
    public boolean isEmpty() {
       return currentIndex == -1; 
-   }
+   } 
 
    @Override
    public String toString() {

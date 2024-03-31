@@ -1,3 +1,4 @@
+
 package oy.tol.tra;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;

@@ -25,29 +25,37 @@ public class Algorithms {
     }  
     }
 
-    public static <E extends Comparable<E>> void fastSort(E [] array) {
-        if (array == null || array.length <= 1){
+    public static <E extends Comparable<E>> void fastSort(E[] array) {
+        if (array == null || array.length <= 1) {
             return;
         }
-        quickSort(array,0,array.length-1);
+        quickSortHoare(array, 0, array.length - 1);
     }
-    public static <E extends Comparable<E>> void quickSort(E [] array, int begin, int end){
-        if (begin < end){
-            int q = partition(array,begin,end);
-            quickSort(array,begin,q-1);
-            quickSort(array,q+1,end);
+
+    public static <E extends Comparable<E>> void quickSortHoare(E[] array, int begin, int end) {
+        if (begin < end) {
+            int pivotIndex = hoarePartition(array, begin, end);
+            quickSortHoare(array, begin, pivotIndex);
+            quickSortHoare(array, pivotIndex + 1, end);
         }
     }
-    private static <E extends Comparable<E>> int partition(E [] array, int begin, int end) {
-        int i = begin-1;
-        for (int leftIndex = begin;leftIndex<end;leftIndex++){
-            if (array[leftIndex].compareTo(array[end])<0){
+
+    private static <E extends Comparable<E>> int hoarePartition(E[] array, int begin, int end) {
+        E pivot = array[begin];
+        int i = begin - 1;
+        int j = end + 1;
+        while (true) {
+            do {
                 i++;
-                swap(array,i,leftIndex);
+            } while (array[i].compareTo(pivot) < 0);
+            do {
+                j--;
+            } while (array[j].compareTo(pivot) > 0);
+            if (i >= j) {
+                return j;
             }
+            swap(array, i, j);
         }
-        swap(array,i+1,end);
-        return i+1;
     }
     public static <T> void swap(T[] array,int i,int j){
         T temp = array[i];

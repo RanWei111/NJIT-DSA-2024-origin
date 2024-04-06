@@ -1,5 +1,6 @@
 # Report
 ## Question 1. What is your hash function like for hash table solution (if you implemented hash table) ：
+The hash function is like
 ```Java
  private int hashCode(K key) {
     int hash = 0;

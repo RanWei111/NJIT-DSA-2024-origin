@@ -1,10 +1,6 @@
-
 package oy.tol.tira.books;
 
-import java.net.HttpURLConnection;
-import java.net.IDN;
-
-public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary<K, V> {
+public class KeyValueHashTable<K extends Comparable<K>, V extends Comparable<V>> implements Dictionary<K, V> {
 
     // This should implement a hash table.
 
@@ -113,7 +109,7 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
     }
 
     @Override
-    @java.lang.SuppressWarnings({"unchecked"})
+    @SuppressWarnings({"unchecked"})
     public Pair<K,V> [] toSortedArray() {
         Pair<K, V> [] sorted = (Pair<K,V>[])new Pair[count];
         int newIndex = 0;
@@ -149,12 +145,11 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
         int newCapacity = (int)(count * (1.0 / LOAD_FACTOR));
 		    if (newCapacity < values.length) {
 			      reallocate(newCapacity);
-		    } 
+		    }
     }
 
     private int calculateIndexByHC(int hashCode,K key){
         int index = Math.abs(hashCode) % values.length;
-
         int start = index;
         while (values[index] != null && !values[index].getKey().equals(key)) {
             index = (index + 1) % values.length;
@@ -167,15 +162,21 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
 
     private int getIndexByHC(int hashCode,K key){
         int index = Math.abs(hashCode) % values.length;
-
-        int start = index;
-        while (values[index] == null || !values[index].getKey().equals(key)) {
-            index = (index + 1) % values.length;
-            if (index == start) {
-                return -1;
-            }
+        Pair<K, V> slot = values[index];
+        if (slot == null || slot.getKey().equals(key)) {
+            return slot == null ? -1 : index;
         }
-        return index;
+        int start = index;
+        do {
+            index = (index + 1) % values.length;
+            slot = values[index];
+            if (slot == null || slot.getKey().equals(key)) {
+                return slot == null ? -1 : index;
+            }
+        } while (index != start);
+
+        return -1;
     }
- 
+
+
 }

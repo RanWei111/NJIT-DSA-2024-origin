@@ -2,17 +2,17 @@ package oy.tol.tira.books;
 
 import java.io.*;
 
-public class BST implements Book {
+public class HashTable implements Book {
     private String bookFilePath;
     private String ignoreFilePath;
-    private KeyValueBSearchTree<String, Integer> wordCounts; // Using BST for word counts
-    private WordFilter wordFilter; // Using WordFilter to manage ignored words
+    private KeyValueHashTable<String, Integer> wordCounts;
+    private WordFilter wordFilter;
     private int totalWordCount = 0;
-    private int uniqueWordCount = 0; // Added to keep track of unique words
-    private int ignoredWordsTotal = 0; // Added to keep track of ignored words
+    private int uniqueWordCount = 0;
+    private int ignoredWordsTotal = 0;
 
-    public BST() {
-        this.wordCounts = new KeyValueBSearchTree<>(); // Initialize with default capacity
+    public HashTable() {
+        this.wordCounts = new KeyValueHashTable<>(); // Initialize with default capacity
         this.wordFilter = new WordFilter(); // Initialize WordFilter
     }
 
@@ -69,7 +69,6 @@ public class BST implements Book {
     @Override
     public void report() {
         Pair<String, Integer>[] sortedWords = wordCounts.toSortedArray();
-        System.out.println("Top Words by Occurrence:");
         for (int i = 0; i < Math.min(sortedWords.length, 100); i++) {
             String word = String.format("%-20s", sortedWords[i].getKey()).replace(' ', '.');
             System.out.format("%4d. %s %6d%n", i + 1, word, sortedWords[i].getValue());
@@ -80,15 +79,11 @@ public class BST implements Book {
         System.out.println("Number of unique words: " + uniqueWordCount);
         System.out.println("Number of words ignored: " + wordFilter.ignoreWordCount());
         System.out.println("Ignored words count in the book file: " + ignoredWordsTotal);
-
-        // Print additional BST statistics
-        System.out.println("\nBST Statistics:");
-        System.out.println(wordCounts.getStatus());
     }
 
     @Override
     public void close() {
-        wordCounts = new KeyValueBSearchTree<>(); // Reset word counts
+        wordCounts = new KeyValueHashTable<>(); // Reset word counts
         wordFilter.close(); // Reset WordFilter
         totalWordCount = 0;
         uniqueWordCount = 0; // Reset unique word count
@@ -111,7 +106,7 @@ public class BST implements Book {
         if (position >= 0 && position < sortedWords.length) {
             return sortedWords[position].getKey();
         }
-        return null; // If position is out of bounds
+        return null;
     }
 
     @Override
@@ -120,6 +115,6 @@ public class BST implements Book {
         if (position >= 0 && position < sortedWords.length) {
             return sortedWords[position].getValue();
         }
-        return -1; // If position is out of bounds
+        return -1;
     }
 }

@@ -7,7 +7,7 @@ package oy.tol.tira.books;
  * Keys must implement the Comparable interface. Equality is determined by
  * comparing keys.
  */
-public class Pair<K extends Comparable<K>, V> implements Comparable<Pair<K, V>> {
+public class Pair<K extends Comparable<K>, V extends Comparable<V>> implements Comparable<Pair<K, V>> {
    private K key;
    private V value;
 
@@ -34,7 +34,7 @@ public class Pair<K extends Comparable<K>, V> implements Comparable<Pair<K, V>> 
 
    @Override
    public int compareTo(Pair<K, V> o) {
-      return key.compareTo(o.key);
+      return value.compareTo(o.value);
    }
 
    @Override

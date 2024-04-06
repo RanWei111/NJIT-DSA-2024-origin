@@ -1,4 +1,3 @@
-
 package oy.tol.tira.books;
 
 import java.util.function.Predicate;

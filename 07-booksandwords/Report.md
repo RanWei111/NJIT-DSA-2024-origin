@@ -29,7 +29,7 @@ for (int index = 0; index < 100 && index<sorted.length; index++) {
 
 ## Question 3. What can you say about the correctness of your implementation? Any issues, bugs or problems you couldn't solve? Any idea why the problem persists and what could perhaps be the solution? :
 
-
+I tried to improve the quick sorting method to speed up the process, but suddenly encountered some difficult problems to solve. Of course, I eventually resolved them. The most impressive issue for me was the issue with generic interfaces. I directly declared [<K, V>], which resulted in errors in the big picture, but I never noticed it. Specific constraints can be applied to them using [<K extends Comparable <K> , V extends Comparable<V>>]. It requires that [K] must be an instance or subclass of [Comparable<K>], and [V] must be an instance or subclass of [Comparable<V>].
 
 ## Question 4. What can you say about the time complexity of your implementation? How efficient is the code in reading and managing the words and their counts? How efficient is your code in getting the top-100 list? Which sorting algorithm are you using? What is the time complexity of that algorithm? :
 

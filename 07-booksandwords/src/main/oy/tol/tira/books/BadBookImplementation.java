@@ -21,7 +21,7 @@ class BadBookImplementation implements Book {
         String word;
         int count;
     }
-    Pair<String,Integer>[] sorted;
+
     private static final int MAX_WORDS = 100000;
     private static final int MAX_WORD_LEN = 100;
     private WordCount[] words = null;

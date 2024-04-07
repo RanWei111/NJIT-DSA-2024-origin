@@ -12,8 +12,8 @@ public class HashTable implements Book {
     private int ignoredWordsTotal = 0;
 
     public HashTable() {
-        this.wordCounts = new KeyValueHashTable<>(); // Initialize with default capacity
-        this.wordFilter = new WordFilter(); // Initialize WordFilter
+        this.wordCounts = new KeyValueHashTable<>(); 
+        this.wordFilter = new WordFilter(); 
     }
 
     @Override
@@ -23,7 +23,7 @@ public class HashTable implements Book {
         verifyFileExists(bookFilePath);
         verifyFileExists(ignoreFilePath);
         try {
-            wordFilter.readFile(ignoreFilePath); // Load ignored words into WordFilter
+            wordFilter.readFile(ignoreFilePath); 
         } catch (IOException e) {
             throw new FileNotFoundException("Could not read ignore words file: " + ignoreWordsFile);
         }
@@ -44,7 +44,7 @@ public class HashTable implements Book {
                 processLine(line);
             }
         }
-        uniqueWordCount = wordCounts.size(); // Update unique word count after processing the file
+        uniqueWordCount = wordCounts.size(); 
     }
 
     private void processLine(String line) {
@@ -54,13 +54,13 @@ public class HashTable implements Book {
                 if (!wordFilter.shouldFilter(word)) {
                     Integer count = wordCounts.find(word);
                     if (count == null) {
-                        uniqueWordCount++; // Increment unique word count for each new word
+                        uniqueWordCount++; 
                     }
                     count = (count == null) ? 1 : count + 1;
                     wordCounts.add(word, count);
                     totalWordCount++;
                 } else {
-                    ignoredWordsTotal++; // Increment ignored words count for each filtered word
+                    ignoredWordsTotal++; 
                 }
             }
         }
@@ -83,11 +83,11 @@ public class HashTable implements Book {
 
     @Override
     public void close() {
-        wordCounts = new KeyValueHashTable<>(); // Reset word counts
-        wordFilter.close(); // Reset WordFilter
+        wordCounts = new KeyValueHashTable<>(); 
+        wordFilter.close(); 
         totalWordCount = 0;
-        uniqueWordCount = 0; // Reset unique word count
-        ignoredWordsTotal = 0; // Reset ignored words total
+        uniqueWordCount = 0; 
+        ignoredWordsTotal = 0; 
     }
 
     @Override

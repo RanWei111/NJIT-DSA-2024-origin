@@ -5,15 +5,15 @@ import java.io.*;
 public class BST implements Book {
     private String bookFilePath;
     private String ignoreFilePath;
-    private KeyValueBSearchTree<String, Integer> wordCounts; // Using BST for word counts
-    private WordFilter wordFilter; // Using WordFilter to manage ignored words
+    private KeyValueBSearchTree<String, Integer> wordCounts; 
+    private WordFilter wordFilter; 
     private int totalWordCount = 0;
-    private int uniqueWordCount = 0; // Added to keep track of unique words
-    private int ignoredWordsTotal = 0; // Added to keep track of ignored words
+    private int uniqueWordCount = 0; 
+    private int ignoredWordsTotal = 0;
 
     public BST() {
-        this.wordCounts = new KeyValueBSearchTree<>(); // Initialize with default capacity
-        this.wordFilter = new WordFilter(); // Initialize WordFilter
+        this.wordCounts = new KeyValueBSearchTree<>(); 
+        this.wordFilter = new WordFilter(); 
     }
 
     @Override
@@ -23,7 +23,7 @@ public class BST implements Book {
         verifyFileExists(bookFilePath);
         verifyFileExists(ignoreFilePath);
         try {
-            wordFilter.readFile(ignoreFilePath); // Load ignored words into WordFilter
+            wordFilter.readFile(ignoreFilePath);
         } catch (IOException e) {
             throw new FileNotFoundException("Could not read ignore words file: " + ignoreWordsFile);
         }
@@ -44,7 +44,7 @@ public class BST implements Book {
                 processLine(line);
             }
         }
-        uniqueWordCount = wordCounts.size(); // Update unique word count after processing the file
+        uniqueWordCount = wordCounts.size(); 
     }
 
     private void processLine(String line) {
@@ -54,13 +54,13 @@ public class BST implements Book {
                 if (!wordFilter.shouldFilter(word)) {
                     Integer count = wordCounts.find(word);
                     if (count == null) {
-                        uniqueWordCount++; // Increment unique word count for each new word
+                        uniqueWordCount++; 
                     }
                     count = (count == null) ? 1 : count + 1;
                     wordCounts.add(word, count);
                     totalWordCount++;
                 } else {
-                    ignoredWordsTotal++; // Increment ignored words count for each filtered word
+                    ignoredWordsTotal++; 
                 }
             }
         }
@@ -80,19 +80,17 @@ public class BST implements Book {
         System.out.println("Number of unique words: " + uniqueWordCount);
         System.out.println("Number of words ignored: " + wordFilter.ignoreWordCount());
         System.out.println("Ignored words count in the book file: " + ignoredWordsTotal);
-
-        // Print additional BST statistics
         System.out.println("\nBST Statistics:");
         System.out.println(wordCounts.getStatus());
     }
 
     @Override
     public void close() {
-        wordCounts = new KeyValueBSearchTree<>(); // Reset word counts
-        wordFilter.close(); // Reset WordFilter
+        wordCounts = new KeyValueBSearchTree<>(); 
+        wordFilter.close(); 
         totalWordCount = 0;
-        uniqueWordCount = 0; // Reset unique word count
-        ignoredWordsTotal = 0; // Reset ignored words total
+        uniqueWordCount = 0; 
+        ignoredWordsTotal = 0; 
     }
 
     @Override
@@ -111,7 +109,7 @@ public class BST implements Book {
         if (position >= 0 && position < sortedWords.length) {
             return sortedWords[position].getKey();
         }
-        return null; // If position is out of bounds
+        return null; 
     }
 
     @Override
@@ -120,6 +118,6 @@ public class BST implements Book {
         if (position >= 0 && position < sortedWords.length) {
             return sortedWords[position].getValue();
         }
-        return -1; // If position is out of bounds
+        return -1;
     }
 }
